@@ -27,88 +27,93 @@
 		<title>Presupuesto App</title>
 	</head>
 	<body>
-		<main class="min-vh-100">
-			<div class="container justify-content-center">
-				<h1 class="display-5 mb-4">Presupuesto App</h1>
-				<div class="mb-3 row">
-					<!-- Form ingresar presupuesto -->
-					<div class="col-6">
-						<form
-							class="bg-success-subtle rounded border border-3 border-success p-4"
-							id="formPresupuesto"
-						>
-							<label for="presupuesto" class="form-label bg-success-subtle"
-								>Ingresa tu presupuesto</label
+		<main
+			class="min-vh-100 d-flex flex-column justify-content-center bg-dark-subtle"
+		>
+			<h1 class="display-5 mb-4 text-light text-center">Presupuesto App</h1>
+			<div class="wrapper container py-3">
+				<div class="container justify-content-center">
+					<div class="mb-3 row">
+						<!-- Form ingresar presupuesto -->
+						<div class="col-6">
+							<form
+								class="shadow-lg rounded border border-3 border-success p-4"
+								id="formPresupuesto"
 							>
-							<input
-								name="presupuesto"
-								class="form-control mb-2"
-								id="presupuestoInput"
-								type="text"
-							/>
-							<button type="submit" class="btn btn-outline-success">
-								Calcular
-							</button>
-						</form>
-					</div>
-					<div class="col-6">
-						<!-- DIV Display: presupuesto, gastos y saldo -->
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">PRESUPUESTO</th>
-									<th scope="col">GASTOS</th>
-									<th scope="col">SALDO</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr id="tablaDisplay">
-									<td id="displayPresupuesto">$0</td>
-									<td id="displayGastos">$0</td>
-									<td id="displaySaldo">$0</td>
-								</tr>
-							</tbody>
-						</table>
+								<label for="presupuesto" class="form-label fw-bold text-light"
+									>Ingresa tu presupuesto</label
+								>
+								<input
+									name="presupuesto"
+									class="form-control mb-2"
+									id="presupuestoInput"
+									type="text"
+								/>
+								<button type="submit" class="btn btn-success">Calcular</button>
+							</form>
+						</div>
+						<div class="col-6">
+							<!-- DIV Display: presupuesto, gastos y saldo -->
+							<table class="table text-light">
+								<thead>
+									<tr>
+										<th scope="col">PRESUPUESTO</th>
+										<th scope="col">GASTOS</th>
+										<th scope="col">SALDO</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr id="tablaDisplay">
+										<td id="displayPresupuesto">$0</td>
+										<td id="displayGastos">$0</td>
+										<td id="displaySaldo">$0</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="container">
-				<div class="row">
-					<!-- Form ingresar gasto (con id, puede ser fecha en ms). No debe ser mayor al presupuesto existente (o al saldo) -->
-					<div class="col-6">
-						<form
-							class="bg-danger-subtle rounded border border-3 border-danger p-4"
-							id="formGasto"
-						>
-							<label for="gastoNombre" class="form-label"
-								>Ingresa el Nombre del Gasto</label
+				<div class="container">
+					<hr />
+				</div>
+				<div class="container">
+					<div class="row">
+						<!-- Form ingresar gasto (con id, puede ser fecha en ms). No debe ser mayor al presupuesto existente (o al saldo) -->
+						<div class="col-6">
+							<form
+								class="shadow-lg rounded border border-3 border-danger p-4"
+								id="formGasto"
 							>
-							<input
-								name="gastoNombre"
-								class="form-control mb-3"
-								id="gastoNombreInput"
-							/>
-							<label for="gasto" class="form-label"
-								>Ingresa el valor del Gasto</label
-							>
-							<input name="gasto" class="form-control mb-2" id="gastoInput" />
-							<button type="submit" class="btn btn-outline-danger">
-								Añadir Gasto
-							</button>
-						</form>
-					</div>
-					<div class="col-6">
-						<!-- Tabla gastos: Gasto, Valor -->
-						<table class="table">
-							<thead>
-								<tr>
-									<th scope="col">GASTO</th>
-									<th scope="col">VALOR</th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<tbody id="tablaGastos"></tbody>
-						</table>
+								<label for="gastoNombre" class="form-label fw-bold text-light"
+									>Ingresa el Nombre del Gasto</label
+								>
+								<input
+									name="gastoNombre"
+									class="form-control mb-3"
+									id="gastoNombreInput"
+								/>
+								<label for="gasto" class="form-label fw-bold text-light"
+									>Ingresa el valor del Gasto</label
+								>
+								<input name="gasto" class="form-control mb-2" id="gastoInput" />
+								<button type="submit" class="btn btn-danger">
+									Añadir Gasto
+								</button>
+							</form>
+						</div>
+						<div class="col-6">
+							<!-- Tabla gastos: Gasto, Valor -->
+							<table class="table text-light">
+								<thead>
+									<tr>
+										<th scope="col">GASTO</th>
+										<th scope="col">VALOR</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody id="tablaGastos"></tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
