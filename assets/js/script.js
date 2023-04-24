@@ -5,14 +5,18 @@ function Gasto(nombre, valor = 0, id) {
 	this.valor = valor;
 	this.id = id;
 }
-
+// Formatea numeros a moneda CLP
+const formatter = new Intl.NumberFormat('es-CL', {
+	style: 'currency',
+	currency: 'CLP',
+});
 let gastos = [];
 let presupuestoTotal = 0;
 let gastosTotal = 0;
 let saldoTotal = 0;
 
-let cleanForm = (name) => {
-	name.reset();
+let cleanForm = (formName) => {
+	formName.reset();
 };
 
 let validarInput = (input) => {
@@ -32,14 +36,11 @@ let ingresarPresupuesto = () => {
 	// Valida que numero ingresado sea numero y mayor o igual a 0
 	if (validarInput(presupuestoInput.value)) {
 		presupuestoTotal += parseInt(presupuestoInput.value);
-		displayPresupuesto.innerHTML = presupuestoTotal.toLocaleString('es-CL', {
-			style: 'currency',
-			currency: 'CLP',
-		});
+		displayPresupuesto.innerHTML = formatter.format(presupuestoTotal);
 	}
 };
 
-// Ingresar presupuesto total
+// Formulario Ingresar presupuesto total
 formPresupuesto.addEventListener('submit', (event) => {
 	event.preventDefault();
 	ingresarPresupuesto();
@@ -62,15 +63,12 @@ let rellenarGastos = () => {
 		tablaGastos.innerHTML += `
         <tr >
             <td>${gasto.nombre}</td>
-            <td>${gasto.valor.toLocaleString('es-CL', {
-							type: 'currency',
-							currency: 'CLP',
-						})}</td>
-            <td><button class="btn btn-danger btnBorrar" ><i class="bi bi-trash3-fill" data-id="${
-							gasto.id
-						}"></button></i></td>
-        </tr>
-        `;
+            <td>${formatter.format(gasto.valor)}</td>
+                        <td><button class="btn btn-danger btnBorrar" ><i class="bi bi-trash3-fill" data-id="${
+													gasto.id
+												}"></button></i></td>
+                        </tr>
+                        `;
 	});
 	// Manejar evento de boton borrar item
 	let btnsBorrar = document.getElementsByClassName('btnBorrar');
@@ -97,25 +95,21 @@ let agregarGasto = () => {
 		let nombreGasto = gastoNombreInput.value;
 		let valorGasto = parseInt(gastoInput.value);
 		let idGasto = uuidv4().slice(0, 6);
-
+		// Crea nuevo objeto de gasto
 		let nuevoGasto = new Gasto(nombreGasto, valorGasto, idGasto);
-		// valida que gasto no sea mayor al presupuesto con una variable que emule si se ingresara el gasto,, seeto
-		let gastoTotalTemporal = gastosTotal + nuevoGasto.valor;
-		if (saldoTotal < gastoTotalTemporal) {
+		// valida que gasto no sea mayor al saldo, se crea una variable que se suma al gasto total, permitiendo comprobar si es mayor al saldo total.
+		if (saldoTotal < nuevoGasto.valor) {
 			alert('No tienes suficiente saldo');
 			cleanForm(formGasto);
 			return;
 		}
 		gastosTotal += nuevoGasto.valor;
 		gastos.push(nuevoGasto);
-		displayGastos.innerHTML = gastosTotal.toLocaleString('es-CL', {
-			style: 'currency',
-			currency: 'CLP',
-		});
+		displayGastos.innerHTML = formatter.format(gastosTotal);
 	}
 };
 
-// Ingresar gasto
+// Formulario Ingresar gasto
 formGasto.addEventListener('submit', (event) => {
 	event.preventDefault();
 	agregarGasto();
@@ -128,9 +122,6 @@ formGasto.addEventListener('submit', (event) => {
 let mostrarSaldo = () => {
 	sumarGastos();
 	let total = presupuestoTotal - gastosTotal;
-	displaySaldo.innerHTML = total.toLocaleString('es-CL', {
-		style: 'currency',
-		currency: 'CLP',
-	});
+	displaySaldo.innerHTML = formatter.format(total);
 	saldoTotal = total;
 };
