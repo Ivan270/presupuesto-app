@@ -35,9 +35,18 @@ let validarInput = (input) => {
 let ingresarPresupuesto = () => {
 	// Valida que numero ingresado sea numero y mayor o igual a 0
 	if (validarInput(presupuestoInput.value)) {
+		// Permite agregar mas presupuesto, no queda fijo con el primer submit
 		presupuestoTotal += parseInt(presupuestoInput.value);
 		displayPresupuesto.innerHTML = formatter.format(presupuestoTotal);
 	}
+};
+
+// Mostrar saldo en Display
+let mostrarSaldo = () => {
+	sumarGastos();
+	let total = presupuestoTotal - gastosTotal;
+	displaySaldo.innerHTML = formatter.format(total);
+	saldoTotal = total;
 };
 
 // Formulario Ingresar presupuesto total
@@ -97,7 +106,7 @@ let agregarGasto = () => {
 		let idGasto = uuidv4().slice(0, 6);
 		// Crea nuevo objeto de gasto
 		let nuevoGasto = new Gasto(nombreGasto, valorGasto, idGasto);
-		// valida que gasto no sea mayor al saldo, se crea una variable que se suma al gasto total, permitiendo comprobar si es mayor al saldo total.
+		// valida que gasto no sea mayor al saldo total
 		if (saldoTotal < nuevoGasto.valor) {
 			alert('No tienes suficiente saldo');
 			cleanForm(formGasto);
@@ -117,11 +126,3 @@ formGasto.addEventListener('submit', (event) => {
 	mostrarSaldo();
 	rellenarGastos();
 });
-
-// Mostrar saldo en Display
-let mostrarSaldo = () => {
-	sumarGastos();
-	let total = presupuestoTotal - gastosTotal;
-	displaySaldo.innerHTML = formatter.format(total);
-	saldoTotal = total;
-};
