@@ -93,6 +93,10 @@ let rellenarGastos = () => {
 let borrarItem = (id) => {
 	let encontrado = gastos.find((gasto) => gasto.id == id);
 	let indexEncontrado = gastos.indexOf(encontrado);
+	console.log(encontrado.valor);
+	console.log(gastosTotal);
+	gastosTotal -= encontrado.valor;
+	displayGastos.innerHTML = formatter.format(gastosTotal);
 	gastos.splice(indexEncontrado, 1);
 	mostrarSaldo();
 	rellenarGastos();
